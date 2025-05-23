@@ -2,53 +2,56 @@ using System;
 
 class Program
 {
-    static float CacaNiquel(char a, char b, char c, char d, char e, char f, char g, char h)
+    static float SlotMachine(char a, char b, char c, char d, char e, char f, char g, char h)
     {
-        char[] possibilidades = new char[] { a, b, c, d, e, f, g, h };
+        char[] possibilities = new char[] { a, b, c, d, e, f };
         Random rnd = new Random();
-        int tentativas = 0;
-        int dinheiro = 1000;
-        int vitorias = 0;
-        int premio = 280;
-        int ficha = 5;
+        int attempts = 0;
+        int money = 1000;
+        int wins = 0;
+        int prize = 175;//(35x)
+        int bet = 5;
 
-        char primeira, segunda, terceira;
+        char first, second, third;
 
         do
         {
-            tentativas++;
-            primeira = possibilidades[rnd.Next(possibilidades.Length)];
-            segunda = possibilidades[rnd.Next(possibilidades.Length)];
-            terceira = possibilidades[rnd.Next(possibilidades.Length)];
+            attempts++;
+            first = possibilities[rnd.Next(possibilities.Length)];
+            second = possibilities[rnd.Next(possibilities.Length)];
+            third = possibilities[rnd.Next(possibilities.Length)];
 
-            //Console.WriteLine($"Tentativa {tentativas}: [{primeira}] [{segunda}] [{terceira}]");
+            Console.WriteLine($"Attempt {attempts}: [{first}] [{second}] [{third}]");
 
-            if (primeira != segunda || segunda != terceira)
+            if (first != second || second != third)
             {
-                dinheiro -= ficha;
+                money -= bet;
             }
             else
             {
-                dinheiro -= ficha;
-                vitorias++;
-                dinheiro += premio;
-                //Console.WriteLine("Você ganhou!**************");
+                money -= bet;
+                wins++;
+                money += prize;
+                Console.WriteLine("You won!**************");
             }
 
-        } while (tentativas < 10000 || dinheiro <= 0 || dinheiro >= 10000);
-        if (dinheiro <= 0)
+        } while (money > 0 && money < 3000);
+
+        if (money <= 0)
         {
-            Console.WriteLine("Você Faliu! :(");
-            Console.WriteLine($"Você venceu: {vitorias} vezes");
-            Console.WriteLine($"Seu dinheiro: {dinheiro},00 $");
-            Console.WriteLine($"Seu dinheiro ganho (mas faliu mesmo assim): {premio * vitorias},00 $");
+            Console.WriteLine($"Attempt {attempts}");
+            Console.WriteLine("You went bankrupt! :(");
+            Console.WriteLine($"You won: {wins} times");
+            Console.WriteLine($"Your money: ${money}.00");
+            Console.WriteLine($"Total winnings (but still bankrupt): ${prize * wins}.00");
         }
         else
         {
-            Console.WriteLine("Você Ganhou na vida! :)");
-            Console.WriteLine($"Você venceu: {vitorias} vezes");
-            Console.WriteLine($"Seu dinheiro: {dinheiro},00 $");
-            Console.WriteLine($"Seu dinheiro ganho: {premio * vitorias},00 $");
+            Console.WriteLine($"Attempt {attempts}");
+            Console.WriteLine("You won in life! :)");
+            Console.WriteLine($"You won: {wins} times");
+            Console.WriteLine($"Your money: ${money}.00");
+            Console.WriteLine($"Total winnings: ${prize * wins}.00");
         }
 
         return 0.0f;
@@ -65,7 +68,6 @@ class Program
         char G = 'G';
         char H = 'H';
 
-
-        CacaNiquel(A, B, C, D, E, F, G, H);
+        SlotMachine(A, B, C, D, E, F, G, H);
     }
 }
